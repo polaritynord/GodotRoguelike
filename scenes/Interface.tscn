@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://resources/VCR_OSD_MONO_1.001.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/DebugMenu.gd" type="Script" id=2]
 [ext_resource path="res://scripts/Interface.gd" type="Script" id=3]
+[ext_resource path="res://scripts/WeaponSlots.gd" type="Script" id=4]
+[ext_resource path="res://scenes/WeaponSlotUI.tscn" type="PackedScene" id=5]
+[ext_resource path="res://resources/font.tres" type="DynamicFont" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 6
@@ -18,14 +21,54 @@ custom_constants/separation = 1
 script = ExtResource( 2 )
 
 [node name="FPS" type="Label" parent="DebugMenu"]
-margin_right = 44.0
+margin_right = 40.0
 margin_bottom = 6.0
 custom_fonts/font = SubResource( 1 )
-text = "127/144 fps"
+text = "DEBUG DATA"
 
 [node name="Coordinates" type="Label" parent="DebugMenu"]
 margin_top = 7.0
-margin_right = 44.0
+margin_right = 40.0
 margin_bottom = 13.0
 custom_fonts/font = SubResource( 1 )
-text = "127/144 fps"
+text = "DEBUG DATA"
+
+[node name="WeaponSlots" type="HBoxContainer" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 6.0
+margin_top = -26.0
+margin_right = 122.0
+margin_bottom = -6.0
+script = ExtResource( 4 )
+
+[node name="PLACEHOLDER" parent="WeaponSlots" instance=ExtResource( 5 )]
+
+[node name="PLACEHOLDER2" parent="WeaponSlots" instance=ExtResource( 5 )]
+margin_left = 24.0
+margin_right = 44.0
+
+[node name="PLACEHOLDER3" parent="WeaponSlots" instance=ExtResource( 5 )]
+margin_left = 48.0
+margin_right = 68.0
+
+[node name="PLACEHOLDER4" parent="WeaponSlots" instance=ExtResource( 5 )]
+margin_left = 72.0
+margin_right = 92.0
+
+[node name="PLACEHOLDER5" parent="WeaponSlots" instance=ExtResource( 5 )]
+margin_left = 96.0
+margin_right = 116.0
+
+[node name="CurrentWeapon" type="Control" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -67.0
+margin_right = 125.0
+margin_bottom = -32.0
+
+[node name="Name" type="Label" parent="CurrentWeapon"]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = ExtResource( 6 )
+text = "Pistol"

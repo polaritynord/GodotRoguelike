@@ -50,6 +50,9 @@ script = ExtResource( 5 )
 [node name="ShootPosition" type="Position2D" parent="HeldItem"]
 position = Vector2( 7.2, -2.4 )
 scale = Vector2( 0.8, 0.8 )
+__meta__ = {
+"_gizmo_extents_": 5.0
+}
 
 [node name="Trail2D" parent="." instance=ExtResource( 6 )]
 width = 20.0

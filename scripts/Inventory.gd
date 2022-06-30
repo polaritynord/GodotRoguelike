@@ -13,7 +13,7 @@ class Weapon:
 
 onready var usp_texture := preload("res://textures/pistol.png")
 onready var held_item := owner.get_node("HeldItem")
-export var max_weapon_slot : int = 3
+export var max_weapon_slot : int = 6
 export var max_item_slot : int = 20
 var weapons : Array
 var items : Array
@@ -48,7 +48,7 @@ func setup_arrays() -> void:
 	for _i in range(max_weapon_slot):
 		weapons.append(null)
 	for _i in range(max_item_slot):
-		weapons.append(null)
+		items.append(null)
 
 func switch_slot() -> void:
 	# Switching slots through special keys
@@ -71,10 +71,10 @@ func held_item_update() -> void:
 func _ready() -> void:
 	setup_arrays()
 	new_weapon(
-		"usp", Globals.weapon_types.MANUAL, Globals.ammo_types.LIGHT, 1,0, 10, 2500, 12,
+		"pistol", Globals.weapon_types.MANUAL, Globals.ammo_types.LIGHT, 1,0, 10, 2500, 12,
 		usp_texture
 	)
-	weapons[0] = weapon_data["usp"]
+	weapons[0] = weapon_data["pistol"]
 
 func _process(_delta: float) -> void:
 	switch_slot()
