@@ -4,3 +4,13 @@
 
 [resource]
 script = ExtResource( 1 )
+name = ""
+type = 0
+ammo_type = 0
+bullet_per_shot = 0
+bullet_spread = 0.0
+bullet_damage = 0.0
+bullet_speed = 0
+mag_size = 0
+mag_ammo = 0
+rarity = 0

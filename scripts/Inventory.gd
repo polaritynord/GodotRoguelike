@@ -22,10 +22,10 @@ var items : Array
 var weapon_data : Dictionary = {}
 var item_data : Array
 var ammunition : Dictionary = {
-	Enum.AMMO_LIGHT: 96,
-	Enum.AMMO_MEDIUM: 0,
-	Enum.AMMO_REVOLVER: 0,
-	Enum.AMMO_ROCKET: 0
+	Enum.ammo.LIGHT: 96,
+	Enum.ammo.MEDIUM: 0,
+	Enum.ammo.REVOLVER: 0,
+	Enum.ammo.ROCKET: 0
 }
 var slot : int = 0
 var prev_slot : int = 0
@@ -75,8 +75,8 @@ func held_item_update() -> void:
 func _ready() -> void:
 	setup_arrays()
 	new_weapon(
-		"pistol", Enum.WP_MANUAL, Enum.AMMO_LIGHT, 1,0, 10, 2500, 12,
-		usp_texture, Enum.RARITY_COMMON
+		"pistol", Enum.weapon.MANUAL, Enum.ammo.LIGHT, 1,0, 10, 2500, 12,
+		usp_texture, Enum.rarity.COMMON
 	)
 
 func _process(_delta: float) -> void:
