@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/endesga-32-32x.png-69fdda06331ece0714e5a778d776e7ba.stex"
+path="res://.import/brick_tile.png-2015cc493a69e48e4ab917d82b2e544d.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://endesga-32-32x.png"
-dest_files=[ "res://.import/endesga-32-32x.png-69fdda06331ece0714e5a778d776e7ba.stex" ]
+source_file="res://textures/brick_tile.png"
+dest_files=[ "res://.import/brick_tile.png-2015cc493a69e48e4ab917d82b2e544d.stex" ]
 
 [params]
 

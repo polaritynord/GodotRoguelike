@@ -117,13 +117,13 @@ _global_script_class_icons={
 [application]
 
 config/name="GodotRoguelike"
-run/main_scene="res://Game.tscn"
+run/main_scene="res://scenes/Game.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-FullscreenToggler="*res://FullscreenToggler.gd"
-Globals="*res://Globals.gd"
+FullscreenToggler="*res://scripts/FullscreenToggler.gd"
+Globals="*res://scripts/Globals.gd"
 
 [display]
 
