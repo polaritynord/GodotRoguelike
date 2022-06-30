@@ -9,7 +9,9 @@ class Weapon:
 	var bullet_damage : float
 	var bullet_speed : int
 	var mag_size : int
+	var mag_ammo : int
 	var texture : Texture
+	var rarity
 
 onready var usp_texture := preload("res://textures/pistol.png")
 onready var held_item := owner.get_node("HeldItem")
@@ -20,17 +22,17 @@ var items : Array
 var weapon_data : Dictionary = {}
 var item_data : Array
 var ammunition : Dictionary = {
-	Globals.ammo_types.LIGHT: 96,
-	Globals.ammo_types.MEDIUM: 0,
-	Globals.ammo_types.REVOLVER: 0,
-	Globals.ammo_types.ROCKET: 0
+	Enum.AMMO_LIGHT: 96,
+	Enum.AMMO_MEDIUM: 0,
+	Enum.AMMO_REVOLVER: 0,
+	Enum.AMMO_ROCKET: 0
 }
 var slot : int = 0
-var prev_slot : int = 1
+var prev_slot : int = 0
 
 func new_weapon(
 	name: String, type, ammo_type, bullet_per_shot: int, bullet_spread: float, bullet_damage: float,
-	bullet_speed: int, mag_size: int, texture: Texture
+	bullet_speed: int, mag_size: int, texture: Texture, rarity
 ) -> void:
 	var weapon : Weapon = Weapon.new()
 	weapon.name = name
@@ -42,6 +44,8 @@ func new_weapon(
 	weapon.bullet_speed = bullet_speed
 	weapon.mag_size = mag_size
 	weapon.texture = texture
+	weapon.mag_ammo = mag_size
+	weapon.rarity = rarity
 	weapon_data[name] = weapon
 
 func setup_arrays() -> void:
@@ -71,10 +75,9 @@ func held_item_update() -> void:
 func _ready() -> void:
 	setup_arrays()
 	new_weapon(
-		"pistol", Globals.weapon_types.MANUAL, Globals.ammo_types.LIGHT, 1,0, 10, 2500, 12,
-		usp_texture
+		"pistol", Enum.WP_MANUAL, Enum.AMMO_LIGHT, 1,0, 10, 2500, 12,
+		usp_texture, Enum.RARITY_COMMON
 	)
-	weapons[0] = weapon_data["pistol"]
 
 func _process(_delta: float) -> void:
 	switch_slot()

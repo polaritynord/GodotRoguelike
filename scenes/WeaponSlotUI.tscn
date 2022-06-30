@@ -7,7 +7,6 @@
 [node name="WeaponSlotUI" type="TextureRect"]
 margin_right = 20.0
 margin_bottom = 20.0
-rect_min_size = Vector2( 20, 20 )
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 

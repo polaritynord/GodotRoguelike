@@ -122,8 +122,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-FullscreenToggler="*res://scripts/FullscreenToggler.gd"
+Enum="*res://scripts/Enum.gd"
 Globals="*res://scripts/Globals.gd"
+FullscreenToggler="*res://scripts/FullscreenToggler.gd"
 
 [display]
 
@@ -227,6 +228,11 @@ slot4={
 slot5={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":54,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pick_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":69,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
  ]
 }
 

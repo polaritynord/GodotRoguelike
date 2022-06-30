@@ -1,7 +1,7 @@
 extends TextureRect
 
 onready var s_texture := preload("res://textures/weapon_slot.png")
-onready var outline_shader := preload("res://resources/outline_shader.tres")
+onready var outline_shader := preload("res://resources/outline_material.tres")
 onready var slot_weapon := $SlotWeapon
 onready var player_inv := get_node("../../../YSort/Player/Inventory")
 var slot : int
