@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://resources/VCR_OSD_MONO_1.001.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/DebugMenu.gd" type="Script" id=2]
@@ -7,8 +7,6 @@
 [ext_resource path="res://scenes/WeaponSlotUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/CurrentWeaponUI.gd" type="Script" id=6]
 [ext_resource path="res://textures/ammo_icon.png" type="Texture" id=7]
-[ext_resource path="res://textures/key_prompt.png" type="Texture" id=8]
-[ext_resource path="res://resources/Pixeled.ttf" type="DynamicFontData" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 6
@@ -22,14 +20,6 @@ font_data = ExtResource( 1 )
 [sub_resource type="DynamicFont" id=3]
 size = 9
 font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 9
-font_data = ExtResource( 9 )
-
-[sub_resource type="DynamicFont" id=4]
-size = 9
-font_data = ExtResource( 9 )
 
 [node name="Interface" type="CanvasLayer"]
 script = ExtResource( 3 )
@@ -118,35 +108,3 @@ margin_top = 27.0
 margin_right = 29.0
 margin_bottom = 32.0
 texture = ExtResource( 7 )
-
-[node name="Prompt" type="Control" parent="."]
-visible = false
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -39.0
-margin_top = 210.0
-margin_right = -39.0
-margin_bottom = 210.0
-
-[node name="Base" type="TextureRect" parent="Prompt"]
-margin_right = 20.0
-margin_bottom = 20.0
-texture = ExtResource( 8 )
-
-[node name="Key" type="Label" parent="Prompt"]
-margin_left = 6.0
-margin_top = -5.0
-margin_right = 15.0
-margin_bottom = 21.0
-custom_colors/font_color = Color( 0.0745098, 0.0745098, 0.0745098, 1 )
-custom_colors/font_outline_modulate = Color( 0.0745098, 0.0745098, 0.0745098, 1 )
-custom_fonts/font = SubResource( 5 )
-text = "E"
-
-[node name="Text" type="Label" parent="Prompt"]
-margin_left = 24.0
-margin_top = -5.0
-margin_right = 77.0
-margin_bottom = 21.0
-custom_fonts/font = SubResource( 4 )
-text = "PICK UP"
