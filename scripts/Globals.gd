@@ -8,3 +8,7 @@ var rarity_colors : Dictionary = {
 	Enum.rarity.MYTHICAL: Color.orangered
 }
 var game_paused : bool = false
+var timer : float = 0
+
+func _process(delta: float) -> void:
+	timer += delta
