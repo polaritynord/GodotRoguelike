@@ -8,6 +8,7 @@ export var speed : int = 125
 export var sprint_multiplier : float = 1.35
 var facing : String = "right"
 var velocity : Vector2
+var stamina : float = 100.0
 
 func set_facing() -> void:
 	var mouse_pos : Vector2 = get_global_mouse_position()

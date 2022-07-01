@@ -1,6 +1,8 @@
 extends Sprite
 
 var rng := RandomNumberGenerator.new()
+var drop_angle : float = 0
+var drop_velocity : float = 0
 export var weapon_name : String = "pistol"
 export var mag_ammo : int = 12
 onready var player := get_node("../../Player")
@@ -9,6 +11,8 @@ onready var tooltip := $Node/Tooltip
 onready var rarity_color : Color = Globals.rarity_colors[player_inv.weapon_data[weapon_name].rarity]
 
 func _ready() -> void:
+	# Set tooltip position
+	tooltip.rect_global_position = Vector2(global_position.x-15, global_position.y-17)
 	# Setup tooltip text, rarity colors, etc.
 	tooltip.set_text(weapon_name)
 	rarity_color = Globals.rarity_colors[player_inv.weapon_data[weapon_name].rarity]
@@ -34,13 +38,20 @@ func pick_up() -> void:
 		player_inv.weapons[slot] = weapon
 	queue_free()
 
-func _physics_process(delta: float) -> void:
-	# Update tooltip position
-	tooltip.rect_global_position = Vector2(global_position.x-15, global_position.y-17)
+func move_by_velocity(delta: float) -> void:
+	# Move by velocity
+	global_position.x += cos(drop_angle) * drop_velocity * delta
+	global_position.y += sin(drop_angle) * drop_velocity * delta
+	# Decrease velocity
+	var vel_smoothness : float = 223 * delta
+	drop_velocity += -drop_velocity / vel_smoothness
+
+func check_distance(delta: float) -> void:
 	var distance : float = global_position.distance_to(player.global_position)
 	var smoothness : float = 250 * delta
 	# Scale sprite based on distance
 	if distance <= 30:
+		pick_up()
 		tooltip.show()
 		scale.x += (1.3 - scale.x) / smoothness
 		scale.y += (1.3 - scale.y) / smoothness
@@ -48,4 +59,9 @@ func _physics_process(delta: float) -> void:
 		tooltip.hide()
 		scale.x += (1 - scale.x) / smoothness
 		scale.y += (1 - scale.y) / smoothness
-	pick_up()
+
+func _physics_process(delta: float) -> void:
+	# Update tooltip position
+	tooltip.rect_global_position = Vector2(global_position.x-15, global_position.y-17)
+	check_distance(delta)
+	move_by_velocity(delta)

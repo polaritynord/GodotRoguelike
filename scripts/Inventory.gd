@@ -13,24 +13,13 @@ var weapon_dic : Dictionary = {
 	"texture": null,
 	"rarity": Enum.rarity.COMMON
 }
-#class Weapon:
-#	var name : String
-#	var type  # I'm not really sure about the types of enums
-#	var ammo_type
-#	var bullet_per_shot : int
-#	var bullet_spread : float
-#	var bullet_damage : float
-#	var bullet_speed : int
-#	var mag_size : int
-#	var mag_ammo : int
-#	var texture : Texture
-#	var rarity
 
-#var weapon_res := preload("res://resources/Weapon.tres")
-onready var usp_texture := preload("res://textures/pistol.png")
+onready var pistol_texture := preload("res://textures/pistol.png")
 onready var held_item := owner.get_node("HeldItem")
+onready var drop_container := get_node("../../DropContainer")
 export var max_weapon_slot : int = 6
 export var max_item_slot : int = 20
+var weapon_drop := preload("res://scenes/WeaponDrop.tscn")
 var weapons : Array
 var items : Array
 var weapon_data : Dictionary = {}
@@ -86,20 +75,30 @@ func held_item_update() -> void:
 	else:
 		held_item.set_texture(weapons[slot].texture)
 
+func drop_weapon() -> void:
+	if !Input.is_action_just_pressed("drop_weapon") or weapons[slot] == null:
+		return
+	# Drop weapon
+	var dropped_weapon = weapon_drop.instance()
+	dropped_weapon.global_position = owner.global_position
+	dropped_weapon.name = weapons[slot].name
+	dropped_weapon.mag_ammo = weapons[slot].mag_ammo
+	dropped_weapon.drop_velocity = 600
+	dropped_weapon.drop_angle = held_item.global_rotation
+	drop_container.add_child(dropped_weapon)
+	# Clear current slot
+	weapons[slot] = null
+
 func _ready() -> void:
 	setup_arrays()
 	new_weapon(
 		"pistol", Enum.weapon.MANUAL, Enum.ammo.LIGHT, 1,0, 10, 2500, 12,
-		usp_texture, Enum.rarity.COMMON
+		pistol_texture, Enum.rarity.COMMON
 	)
-	weapons[0] = weapon_data["pistol"].duplicate()
-	weapons[1] = weapon_data["pistol"].duplicate()
-	weapons[2] = weapon_data["pistol"].duplicate()
-	weapons[3] = weapon_data["pistol"].duplicate()
-	weapons[4] = weapon_data["pistol"].duplicate()
 
 func _process(_delta: float) -> void:
 	switch_slot()
 	held_item_update()
+	drop_weapon()
 	if Input.is_action_just_pressed("shoot"):
 		weapons[slot].mag_ammo -= 1
