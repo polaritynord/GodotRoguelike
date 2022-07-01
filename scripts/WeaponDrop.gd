@@ -3,6 +3,7 @@ extends Sprite
 var rng := RandomNumberGenerator.new()
 var drop_angle : float = 0
 var drop_velocity : float = 0
+var being_picked_up : bool = false
 export var weapon_name : String = "pistol"
 export var mag_ammo : int = 12
 onready var player := get_node("../../Player")
@@ -36,7 +37,9 @@ func pick_up() -> void:
 				break
 			slot += 1
 		player_inv.weapons[slot] = weapon
-	queue_free()
+	
+	# Start picking up animation
+	being_picked_up = true
 
 func move_by_velocity(delta: float) -> void:
 	# Move by velocity
@@ -50,7 +53,7 @@ func check_distance(delta: float) -> void:
 	var distance : float = global_position.distance_to(player.global_position)
 	var smoothness : float = 250 * delta
 	# Scale sprite based on distance
-	if distance <= 30:
+	if distance <= 30 and !being_picked_up:
 		pick_up()
 		tooltip.show()
 		scale.x += (1.3 - scale.x) / smoothness
@@ -60,8 +63,25 @@ func check_distance(delta: float) -> void:
 		scale.x += (1 - scale.x) / smoothness
 		scale.y += (1 - scale.y) / smoothness
 
+func pick_up_anim(delta: float) -> void:
+	if !being_picked_up:
+		return
+	# Move towards player
+	var temp : float = global_rotation
+	var d : float = global_position.distance_to(player.global_position)
+	var vel : float = (d / 30) * 385
+	look_at(player.global_position)
+	global_position.x += cos(global_rotation) * vel * delta
+	global_position.y += sin(global_rotation) * vel * delta
+	modulate.a = d / 30
+	global_rotation = temp
+	# Despawn when distance < 1
+	if d < 1:
+		queue_free()
+
 func _physics_process(delta: float) -> void:
 	# Update tooltip position
 	tooltip.rect_global_position = Vector2(global_position.x-15, global_position.y-17)
 	check_distance(delta)
 	move_by_velocity(delta)
+	pick_up_anim(delta)
