@@ -14,7 +14,8 @@ var weapon_dic : Dictionary = {
 	"texture": null,
 	"rarity": Enum.rarity.COMMON,
 	"shoot_cooldown": 0,
-	"despawn_time": 3.5
+	"despawn_time": 3.5,
+	"reload_time": 1.5
 }
 
 onready var pistol_texture := preload("res://textures/pistol.png")
@@ -44,7 +45,8 @@ var shoot_timer : float = 0.0
 
 func new_weapon(
 	name: String, type, ammo_type, bullet_per_shot: int, bullet_spread: float, bullet_damage: float,
-	bullet_speed: int, mag_size: int, texture: Texture, rarity, shoot_cooldown: float, despawn_time: float
+	bullet_speed: int, mag_size: int, texture: Texture, rarity, shoot_cooldown: float, despawn_time: float,
+	reload_time: float
 ) -> void:
 	var weapon = weapon_dic.duplicate()
 	weapon.name = name
@@ -60,6 +62,7 @@ func new_weapon(
 	weapon.rarity = rarity
 	weapon.shoot_cooldown = shoot_cooldown
 	weapon.despawn_time = despawn_time
+	weapon.reload_time = reload_time
 	weapon_data[name] = weapon
 
 func setup_arrays() -> void:
@@ -104,7 +107,7 @@ func _ready() -> void:
 	setup_arrays()
 	new_weapon(
 		"pistol", Enum.weapon.MANUAL, Enum.ammo.LIGHT, 1, 0.035, 10, 2500, 12,
-		pistol_texture, Enum.rarity.COMMON, 0, 3.5
+		pistol_texture, Enum.rarity.EPIC, 0, 3.5, 1.4
 	)
 
 func shoot() -> void:
@@ -116,11 +119,17 @@ func shoot() -> void:
 			if weapon.mag_ammo < 1:
 				continue
 			var new_bullet = bullet.instance()
+			# Set speed
+			new_bullet.speed = weapon.bullet_speed
 			# Set position
 			new_bullet.global_position = shoot_position.global_position
 			# Set rotation
-			new_bullet.global_rotation = shoot_position.global_rotation
-			new_bullet.global_rotation += rng.randf_range(-weapon.bullet_spread, weapon.bullet_spread)
+			new_bullet.rotation = shoot_position.global_rotation
+			new_bullet.rotation += rng.randf_range(-weapon.bullet_spread, weapon.bullet_spread)
+			# Set damage
+			new_bullet.damage = weapon.bullet_damage
+			# Set trail color
+			new_bullet.trail_color = Globals.rarity_colors[weapon.rarity]
 			# Add bullet instance to tree
 			bullet_container.add_child(new_bullet)
 			weapon.mag_ammo -= 1
