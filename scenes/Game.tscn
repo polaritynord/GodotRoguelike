@@ -75,3 +75,5 @@ position = Vector2( 240, 135 )
 
 [node name="WeaponDrop" parent="YSort/DropContainer" instance=ExtResource( 4 )]
 position = Vector2( 286, 109 )
+
+[node name="BulletContainer" type="Node" parent="."]
