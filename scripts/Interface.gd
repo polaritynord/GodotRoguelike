@@ -21,7 +21,7 @@ func update_stamina_bar(delta: float) -> void:
 		stamina_alpha = 1
 	old_stamina = player.stamina
 	# Update alpha
-	if Globals.timer - stamina_timer > 3:
+	if Globals.timer - stamina_timer > 1.85:
 		stamina_alpha -= 3.36 * delta
 	# Set values
 	stamina_bar.value = player.stamina

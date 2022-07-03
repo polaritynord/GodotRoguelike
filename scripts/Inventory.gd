@@ -14,7 +14,7 @@ var weapon_dic : Dictionary = {
 	"texture": null,
 	"rarity": Enum.rarity.COMMON,
 	"shoot_cooldown": 0,
-	"despawn_time": 3.5,
+	"lifetime": 3.5,
 	"reload_time": 1.5
 }
 
@@ -45,7 +45,7 @@ var shoot_timer : float = 0.0
 
 func new_weapon(
 	name: String, type, ammo_type, bullet_per_shot: int, bullet_spread: float, bullet_damage: float,
-	bullet_speed: int, mag_size: int, texture: Texture, rarity, shoot_cooldown: float, despawn_time: float,
+	bullet_speed: int, mag_size: int, texture: Texture, rarity, shoot_cooldown: float, lifetime: float,
 	reload_time: float
 ) -> void:
 	var weapon = weapon_dic.duplicate()
@@ -61,7 +61,7 @@ func new_weapon(
 	weapon.mag_ammo = mag_size
 	weapon.rarity = rarity
 	weapon.shoot_cooldown = shoot_cooldown
-	weapon.despawn_time = despawn_time
+	weapon.lifetime = lifetime
 	weapon.reload_time = reload_time
 	weapon_data[name] = weapon
 
@@ -92,8 +92,8 @@ func held_item_update() -> void:
 func drop_weapon() -> void:
 	if !Input.is_action_just_pressed("drop_weapon") or weapons[slot] == null:
 		return
-	# Drop weapon
 	var dropped_weapon = weapon_drop.instance()
+	# Drop weapon
 	dropped_weapon.global_position = owner.global_position
 	dropped_weapon.name = weapons[slot].name
 	dropped_weapon.mag_ammo = weapons[slot].mag_ammo
@@ -106,33 +106,48 @@ func drop_weapon() -> void:
 func _ready() -> void:
 	setup_arrays()
 	new_weapon(
-		"pistol", Enum.weapon.MANUAL, Enum.ammo.LIGHT, 1, 0.035, 10, 2500, 12,
-		pistol_texture, Enum.rarity.EPIC, 0, 3.5, 1.4
+		"pistol", Enum.weapon.MANUAL, Enum.ammo.LIGHT, 1, 0.035, 10, 1500, 12,
+		pistol_texture, Enum.rarity.COMMON, 0.05, 3.5, 1.4
 	)
+
+func shoot_bullet(weapon: Dictionary) -> void:
+	shoot_timer = Globals.timer
+	for _i in range(weapon.bullet_per_shot):
+		if weapon.mag_ammo < 1:
+			continue
+		var new_bullet = bullet.instance()
+		# Set speed
+		new_bullet.speed = weapon.bullet_speed
+		# Set position
+		new_bullet.global_position = shoot_position.global_position
+		# Set rotation
+		new_bullet.rotation = shoot_position.global_rotation
+		new_bullet.rotation += rng.randf_range(-weapon.bullet_spread, weapon.bullet_spread)
+		# Set damage
+		new_bullet.damage = weapon.bullet_damage
+		# Set trail color
+		new_bullet.trail_color = Globals.rarity_colors[weapon.rarity]
+		# Set lifetime
+		new_bullet.lifetime = weapon.lifetime
+		# Add bullet instance to tree
+		bullet_container.add_child(new_bullet)
+	
+		weapon.mag_ammo -= 1
 
 func shoot() -> void:
 	if weapons[slot] == null:
 		return
 	var weapon = weapons[slot]
-	if weapon.type == Enum.weapon.MANUAL and Input.is_action_just_pressed("shoot"):
-		for _i in range(weapon.bullet_per_shot):
-			if weapon.mag_ammo < 1:
-				continue
-			var new_bullet = bullet.instance()
-			# Set speed
-			new_bullet.speed = weapon.bullet_speed
-			# Set position
-			new_bullet.global_position = shoot_position.global_position
-			# Set rotation
-			new_bullet.rotation = shoot_position.global_rotation
-			new_bullet.rotation += rng.randf_range(-weapon.bullet_spread, weapon.bullet_spread)
-			# Set damage
-			new_bullet.damage = weapon.bullet_damage
-			# Set trail color
-			new_bullet.trail_color = Globals.rarity_colors[weapon.rarity]
-			# Add bullet instance to tree
-			bullet_container.add_child(new_bullet)
-			weapon.mag_ammo -= 1
+	if Globals.timer - shoot_timer < weapon.shoot_cooldown:
+		return
+	# Shoot current weapon
+	match weapon.type:
+		Enum.weapon.MANUAL:
+			if Input.is_action_just_pressed("shoot"):
+				shoot_bullet(weapon)
+		Enum.weapon.AUTO:
+			if Input.is_action_pressed("shoot"):
+				shoot_bullet(weapon)
 
 func _process(_delta: float) -> void:
 	switch_slot()
