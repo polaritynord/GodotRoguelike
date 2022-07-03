@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://textures/brick_tile.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Interface.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/WeaponDrop.tscn" type="PackedScene" id=4]
+[ext_resource path="res://data/weapons/pistol.gd" type="Script" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "brick_tile.png 0"
@@ -75,5 +76,6 @@ position = Vector2( 240, 135 )
 
 [node name="WeaponDrop" parent="YSort/DropContainer" instance=ExtResource( 4 )]
 position = Vector2( 286, 109 )
+weapon = ExtResource( 5 )
 
 [node name="BulletContainer" type="Node" parent="."]

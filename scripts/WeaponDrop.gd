@@ -4,27 +4,31 @@ var rng := RandomNumberGenerator.new()
 var drop_angle : float = 0
 var drop_velocity : float = 0
 var being_picked_up : bool = false
-export var weapon_name : String = "pistol"
+var rarity_color : Color
+
+export var weapon : Resource
 export var mag_ammo : int = 12
+
 onready var player := get_node("../../Player")
 onready var player_inv := get_node("../../Player/Inventory")
 onready var tooltip := $Node/Tooltip
-onready var rarity_color : Color = Globals.rarity_colors[player_inv.weapon_data[weapon_name].rarity]
 
 func _ready() -> void:
+	weapon = weapon.new()
 	# Set tooltip position
 	tooltip.rect_global_position = Vector2(global_position.x-15, global_position.y-17)
 	# Setup tooltip text, rarity colors, etc.
-	tooltip.set_text(weapon_name)
-	rarity_color = Globals.rarity_colors[player_inv.weapon_data[weapon_name].rarity]
+	tooltip.set_text(weapon.name)
+	rarity_color = Globals.rarity_colors[weapon.rarity]
 	material.set_shader_param("color", rarity_color)
 	tooltip.add_color_override("font_color", rarity_color)
 	rotation = rng.randi_range(75, 90)
+	# Set texture
+	set_texture(weapon.texture)
 
 func pick_up() -> void:
 	if not Input.is_action_just_pressed("pick_up") or not null in player_inv.weapons:
 		return
-	var weapon : Dictionary = player_inv.weapon_data[weapon_name].duplicate()
 	weapon.mag_ammo = mag_ammo
 	# Replace current slot if it's empty
 	if player_inv.weapons[player_inv.slot] == null:

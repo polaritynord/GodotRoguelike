@@ -1,22 +1,22 @@
 extends Node
 
 var rng := RandomNumberGenerator.new()
-var weapon_dic : Dictionary = {
-	"name": "",
-	"type": Enum.weapon.MANUAL,
-	"ammo_type": Enum.ammo.LIGHT,
-	"bullet_per_shot": 1,
-	"bullet_spread": 0,
-	"bullet_damage": 8,
-	"bullet_speed": 2000,
-	"mag_size": 12,
-	"mag_ammo": 0,
-	"texture": null,
-	"rarity": Enum.rarity.COMMON,
-	"shoot_cooldown": 0,
-	"lifetime": 3.5,
-	"reload_time": 1.5
-}
+#var weapon_dic : Dictionary = {
+#	"name": "",
+#	"type": Enum.weapon.MANUAL,
+#	"ammo_type": Enum.ammo.LIGHT,
+#	"bullet_per_shot": 1,
+#	"bullet_spread": 0,
+#	"bullet_damage": 8,
+#	"bullet_speed": 2000,
+#	"mag_size": 12,
+#	"mag_ammo": 0,
+#	"texture": null,
+#	"rarity": Enum.rarity.COMMON,
+#	"shoot_cooldown": 0,
+#	"lifetime": 3.5,
+#	"reload_time": 1.5
+#}
 
 onready var pistol_texture := preload("res://textures/pistol.png")
 onready var held_item := owner.get_node("HeldItem")
@@ -43,27 +43,27 @@ var slot : int = 0
 var prev_slot : int = 0
 var shoot_timer : float = 0.0
 
-func new_weapon(
-	name: String, type, ammo_type, bullet_per_shot: int, bullet_spread: float, bullet_damage: float,
-	bullet_speed: int, mag_size: int, texture: Texture, rarity, shoot_cooldown: float, lifetime: float,
-	reload_time: float
-) -> void:
-	var weapon = weapon_dic.duplicate()
-	weapon.name = name
-	weapon.type = type
-	weapon.ammo_type = ammo_type
-	weapon.bullet_per_shot = bullet_per_shot
-	weapon.bullet_spread = bullet_spread
-	weapon.bullet_damage = bullet_damage
-	weapon.bullet_speed = bullet_speed
-	weapon.mag_size = mag_size
-	weapon.texture = texture
-	weapon.mag_ammo = mag_size
-	weapon.rarity = rarity
-	weapon.shoot_cooldown = shoot_cooldown
-	weapon.lifetime = lifetime
-	weapon.reload_time = reload_time
-	weapon_data[name] = weapon
+#func new_weapon(
+#	name: String, type, ammo_type, bullet_per_shot: int, bullet_spread: float, bullet_damage: float,
+#	bullet_speed: int, mag_size: int, texture: Texture, rarity, shoot_cooldown: float, lifetime: float,
+#	reload_time: float
+#) -> void:
+#	var weapon = weapon_dic.duplicate()
+#	weapon.name = name
+#	weapon.type = type
+#	weapon.ammo_type = ammo_type
+#	weapon.bullet_per_shot = bullet_per_shot
+#	weapon.bullet_spread = bullet_spread
+#	weapon.bullet_damage = bullet_damage
+#	weapon.bullet_speed = bullet_speed
+#	weapon.mag_size = mag_size
+#	weapon.texture = texture
+#	weapon.mag_ammo = mag_size
+#	weapon.rarity = rarity
+#	weapon.shoot_cooldown = shoot_cooldown
+#	weapon.lifetime = lifetime
+#	weapon.reload_time = reload_time
+#	weapon_data[name] = weapon
 
 func setup_arrays() -> void:
 	for _i in range(max_weapon_slot):
@@ -105,12 +105,12 @@ func drop_weapon() -> void:
 
 func _ready() -> void:
 	setup_arrays()
-	new_weapon(
-		"pistol", Enum.weapon.MANUAL, Enum.ammo.LIGHT, 1, 0.035, 10, 1500, 12,
-		pistol_texture, Enum.rarity.COMMON, 0.05, 3.5, 1.4
-	)
+#	new_weapon(
+#		"pistol", Enum.weapon.MANUAL, Enum.ammo.LIGHT, 1, 0.035, 10, 1500, 12,
+#		pistol_texture, Enum.rarity.COMMON, 0.05, 3.5, 1.4
+#	)
 
-func shoot_bullet(weapon: Dictionary) -> void:
+func shoot_bullet(weapon: Resource) -> void:
 	shoot_timer = Globals.timer
 	for _i in range(weapon.bullet_per_shot):
 		if weapon.mag_ammo < 1:
@@ -128,7 +128,7 @@ func shoot_bullet(weapon: Dictionary) -> void:
 		# Set trail color
 		new_bullet.trail_color = Globals.rarity_colors[weapon.rarity]
 		# Set lifetime
-		new_bullet.lifetime = weapon.lifetime
+		new_bullet.lifetime = weapon.bullet_lifetime
 		# Add bullet instance to tree
 		bullet_container.add_child(new_bullet)
 	
