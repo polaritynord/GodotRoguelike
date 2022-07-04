@@ -14,4 +14,7 @@ export_presets.cfg
 .mono/
 data_*/
 
+# Plugins
+addons/godot_editor_discord_presence
+
 # End of https://www.toptal.com/developers/gitignore/api/godot

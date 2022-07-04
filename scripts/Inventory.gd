@@ -18,7 +18,7 @@ var items : Array
 var weapon_data : Dictionary = {}
 var item_data : Array
 var ammunition : Dictionary = {
-	Enum.ammo.LIGHT: 96,
+	Enum.ammo.LIGHT: 12,
 	Enum.ammo.MEDIUM: 0,
 	Enum.ammo.REVOLVER: 0,
 	Enum.ammo.ROCKET: 0
@@ -94,7 +94,7 @@ func shoot_bullet(weapon: Resource) -> void:
 		weapon.mag_ammo -= 1
 
 func shoot() -> void:
-	if weapons[slot] == null:
+	if weapons[slot] == null or reloading_weapon:
 		return
 	var weapon = weapons[slot]
 	if Globals.timer - shoot_timer < weapon.shoot_cooldown:
@@ -115,6 +115,9 @@ func reload_input() -> void:
 	var weapon : Resource = weapons[slot]
 	if weapon == null or weapon.mag_ammo == weapon.mag_size or reloading_weapon:
 		return
+	# Return if there is no ammunition remaining
+	if ammunition[weapon.ammo_type] < 1:
+		return
 	reloading_weapon = true
 	reload_timer = Globals.timer
 
@@ -122,8 +125,17 @@ func reload_weapon() -> void:
 	if !reloading_weapon:
 		return
 	var weapon : Resource = weapons[slot]
+	var ammo : int = ammunition[weapon.ammo_type]
 	if Globals.timer - reload_timer > weapon.reload_time:
 		reloading_weapon = false
+		# Reload weapon
+		var diff : int = weapon.mag_size - weapon.mag_ammo
+		if diff > ammo:
+			weapon.mag_ammo = weapon.mag_ammo + ammo
+			ammunition[weapon.ammo_type] = 0
+		else:
+			weapon.mag_ammo += diff
+			ammunition[weapon.ammo_type] -= diff
 
 func _ready() -> void:
 	setup_arrays()

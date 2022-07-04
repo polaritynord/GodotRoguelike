@@ -80,7 +80,7 @@ func pick_up_anim(delta: float) -> void:
 	modulate.a = d / 30
 	global_rotation = temp
 	# Despawn when distance < 1
-	if d < 1:
+	if d < 10:
 		queue_free()
 
 func _physics_process(delta: float) -> void:
