@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Interface.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/WeaponDrop.tscn" type="PackedScene" id=4]
-[ext_resource path="res://data/weapons/pistol.gd" type="Script" id=5]
+[ext_resource path="res://data/weapons/pistol.tres" type="Resource" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "brick_tile.png 0"
@@ -74,8 +74,19 @@ position = Vector2( 240, 135 )
 
 [node name="DropContainer" type="Node" parent="YSort"]
 
-[node name="WeaponDrop" parent="YSort/DropContainer" instance=ExtResource( 4 )]
+[node name="Pistol" parent="YSort/DropContainer" instance=ExtResource( 4 )]
 position = Vector2( 286, 109 )
+scale = Vector2( 1.00801, 1 )
+weapon = ExtResource( 5 )
+
+[node name="Pistol2" parent="YSort/DropContainer" instance=ExtResource( 4 )]
+position = Vector2( 266, 195 )
+scale = Vector2( 1.00801, 1 )
+weapon = ExtResource( 5 )
+
+[node name="Pistol3" parent="YSort/DropContainer" instance=ExtResource( 4 )]
+position = Vector2( 109, 91 )
+scale = Vector2( 1.00801, 1 )
 weapon = ExtResource( 5 )
 
 [node name="BulletContainer" type="Node" parent="."]

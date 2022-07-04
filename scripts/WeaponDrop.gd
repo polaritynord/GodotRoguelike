@@ -14,7 +14,7 @@ onready var player_inv := get_node("../../Player/Inventory")
 onready var tooltip := $Node/Tooltip
 
 func _ready() -> void:
-	weapon = weapon.new()
+	weapon = weapon.duplicate()
 	# Set tooltip position
 	tooltip.rect_global_position = Vector2(global_position.x-15, global_position.y-17)
 	# Setup tooltip text, rarity colors, etc.
