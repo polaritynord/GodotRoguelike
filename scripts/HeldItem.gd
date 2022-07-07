@@ -1,6 +1,7 @@
 extends Sprite
 
 onready var inventory := get_node("../Inventory")
+var recoil_offset : float = 0
 
 func _process(delta: float) -> void:
 	# Set rotation
@@ -17,3 +18,9 @@ func _process(delta: float) -> void:
 		if !inventory.reloading_weapon:
 			rotation -= 135
 		position.x = -10
+	position.y = 5
+	# Recoil offsetting
+	position.x += cos(rotation) * recoil_offset
+	position.y += sin(rotation) * recoil_offset
+	var smoothness : float = 300 * delta
+	recoil_offset += (-recoil_offset / smoothness)

@@ -18,3 +18,4 @@ var mag_size : int = 12
 var reload_time : float = 1.5
 # Visuals
 var texture : Texture = preload("res://textures/pistol.png")
+var recoil_rate : float = 5

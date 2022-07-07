@@ -74,6 +74,8 @@ func shoot_bullet(weapon: Resource) -> void:
 	for _i in range(weapon.bullet_per_shot):
 		if weapon.mag_ammo < 1:
 			continue
+		# Create recoil effect on held item
+		held_item.recoil_offset = weapon.recoil_rate
 		var new_bullet = bullet.instance()
 		# Set speed
 		new_bullet.speed = weapon.bullet_speed
