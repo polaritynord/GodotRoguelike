@@ -57,6 +57,10 @@ __meta__ = {
 "_gizmo_extents_": 5.0
 }
 
+[node name="ColorRect" type="ColorRect" parent="HeldItem/ShootPosition"]
+margin_right = 4.0
+margin_bottom = 4.0
+
 [node name="Trail2D" parent="." instance=ExtResource( 6 )]
 width = 20.0
 width_curve = SubResource( 3 )

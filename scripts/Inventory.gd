@@ -18,8 +18,8 @@ var items : Array
 var weapon_data : Dictionary = {}
 var item_data : Array
 var ammunition : Dictionary = {
-	Enum.ammo.LIGHT: 12,
-	Enum.ammo.MEDIUM: 0,
+	Enum.ammo.LIGHT: 999,
+	Enum.ammo.MEDIUM: 999,
 	Enum.ammo.REVOLVER: 0,
 	Enum.ammo.ROCKET: 0
 }

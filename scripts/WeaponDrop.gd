@@ -25,6 +25,8 @@ func _ready() -> void:
 	rotation = rng.randi_range(75, 90)
 	# Set texture
 	set_texture(weapon.texture)
+	# Set tooltip position
+	tooltip.rect_position.x = texture.get_width()
 
 func pick_up() -> void:
 	if not Input.is_action_just_pressed("pick_up") or not null in player_inv.weapons:

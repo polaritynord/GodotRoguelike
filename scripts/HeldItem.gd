@@ -4,6 +4,9 @@ onready var inventory := get_node("../Inventory")
 var recoil_offset : float = 0
 
 func _process(delta: float) -> void:
+	# Shoot position offsetting
+	if texture != null:
+		$ShootPosition.position.x = texture.get_width()/2
 	# Set rotation
 	if inventory.reloading_weapon:
 		rotation += 18 * delta
