@@ -5,7 +5,7 @@ enum weapon {
 }
 
 enum ammo {
-	LIGHT, MEDIUM, ROCKET, REVOLVER
+	LIGHT, MEDIUM, ROCKET, REVOLVER, SHOTGUN
 }
 
 enum rarity {

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://textures/brick_tile.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://data/weapons/pistol.tres" type="Resource" id=5]
 [ext_resource path="res://scenes/Crosshair.tscn" type="PackedScene" id=6]
 [ext_resource path="res://data/weapons/auto_rifle.tres" type="Resource" id=7]
+[ext_resource path="res://data/weapons/shotgun.tres" type="Resource" id=8]
 
 [sub_resource type="TileSet" id=1]
 0/name = "brick_tile.png 0"
@@ -80,6 +81,12 @@ position = Vector2( 240, 135 )
 position = Vector2( 286, 109 )
 scale = Vector2( 1.00801, 1 )
 weapon = ExtResource( 5 )
+
+[node name="Shotgun" parent="YSort/DropContainer" instance=ExtResource( 4 )]
+position = Vector2( 323, 161 )
+scale = Vector2( 1.01608, 1 )
+weapon = ExtResource( 8 )
+mag_ammo = 9
 
 [node name="AssaultRifle" parent="YSort/DropContainer" instance=ExtResource( 4 )]
 position = Vector2( 172, 107 )

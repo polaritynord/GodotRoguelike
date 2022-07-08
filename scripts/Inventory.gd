@@ -21,7 +21,8 @@ var ammunition : Dictionary = {
 	Enum.ammo.LIGHT: 999,
 	Enum.ammo.MEDIUM: 999,
 	Enum.ammo.REVOLVER: 0,
-	Enum.ammo.ROCKET: 0
+	Enum.ammo.ROCKET: 0,
+	Enum.ammo.SHOTGUN: 999
 }
 var slot : int = 0
 var prev_slot : int = 0
