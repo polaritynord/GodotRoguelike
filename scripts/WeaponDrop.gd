@@ -25,8 +25,6 @@ func _ready() -> void:
 	rotation = rng.randi_range(75, 90)
 	# Set texture
 	set_texture(weapon.texture)
-	# Set tooltip position
-	tooltip.rect_position.x = texture.get_width()
 
 func pick_up() -> void:
 	if not Input.is_action_just_pressed("pick_up") or not null in player_inv.weapons:
@@ -87,7 +85,9 @@ func pick_up_anim(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	# Update tooltip position
-	tooltip.rect_global_position = Vector2(global_position.x-15, global_position.y-17)
+	var texture_width : int = texture.get_width()
+	var temp : int = len(tooltip.text)
+	tooltip.rect_global_position = Vector2(global_position.x-texture_width*2+15, global_position.y-17)
 	check_distance(delta)
 	move_by_velocity(delta)
 	pick_up_anim(delta)

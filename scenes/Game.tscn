@@ -82,7 +82,7 @@ scale = Vector2( 1.00801, 1 )
 weapon = ExtResource( 5 )
 
 [node name="AssaultRifle" parent="YSort/DropContainer" instance=ExtResource( 4 )]
-position = Vector2( 316, 109 )
+position = Vector2( 172, 107 )
 scale = Vector2( 1.00801, 1 )
 weapon = ExtResource( 7 )
 mag_ammo = 30

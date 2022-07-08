@@ -8,18 +8,14 @@ func _process(delta: float) -> void:
 	if texture != null:
 		$ShootPosition.position.x = texture.get_width()/2
 	# Set rotation
-	if inventory.reloading_weapon:
-		rotation += 18 * delta
-	else:
-		look_at(get_global_mouse_position())
+	look_at(get_global_mouse_position())
 	# Set position
 	if owner.facing == "right":
 		scale.x = 1.25
 		position.x = 10
 	else:
 		scale.x = -1.25
-		if !inventory.reloading_weapon:
-			rotation -= 135
+		rotation -= 135
 		position.x = -10
 	position.y = 5
 	# Recoil offsetting
